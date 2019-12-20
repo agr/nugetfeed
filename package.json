@@ -1,0 +1,13 @@
+{
+  "name": "nugetfeed",
+  "version": "0.0.1",
+  "private": true,
+  "author": "",
+  "license": "NONE",
+  "devDependencies": {
+    "@types/jquery": "3.3.31",
+    "@types/knockout": "3.4.66",
+    "rollup": "^1.27.13",
+    "typescript": "^3.7.3"
+  }
+}
