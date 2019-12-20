@@ -5,7 +5,7 @@
     "removeComments": true,
     "sourceMap": false,
     "outDir": "./obj",
-    "target": "es6",
+    "target": "es5",
     "module": "es6"
   },
   "include": [
