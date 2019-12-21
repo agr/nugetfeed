@@ -46,11 +46,13 @@ export class CatalogPoller {
     private feedUrl: string;
     private pollDelay: number;
     private pageCallback: ICatalogPageReceived;
+    private enabled: boolean;
 
     constructor(feedUrl: string, pollDelay: number, pageCallback: ICatalogPageReceived) {
         this.feedUrl = feedUrl;
         this.pollDelay = pollDelay;
         this.pageCallback = pageCallback;
+        this.enabled = true;
         this.poll();
     }
 
