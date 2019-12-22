@@ -10,10 +10,7 @@
                     <!-- ko if: state() === 65536 -->
                     <a class="package-deleted" title="Deleted" data-bind="attr: { href: catalogLeafUrl }">&times;</a>
                     <!-- /ko -->
-                    <!-- ko if: state() === 15 -->
-                    <span class="package-status">&check;</span>
-                    <!-- /ko -->
-                    <!-- ko ifnot: state() === 65536 || state() === 15 -->
+                    <!-- ko ifnot: state() === 65536 -->
                     <span class="package-status">
                         <a class="catalog status-ok" title="Present in catalog" data-bind="attr: { href: catalogLeafUrl }">&#x25cf;</a><!--
                         --><a class="registration" data-bind="class: state() & 2 ? 'status-ok' : 'status-no', attr: { title: state() & 2 ? 'Present in registration' : 'Not present in registration', href: registrationUrl }, text: state() & 2 ? '&#x25cf;' : '&#x25cb;'"></a><!--

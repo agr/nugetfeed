@@ -37,9 +37,9 @@ export class Package {
                     ? `https://www.nuget.org/packages/${this.id()}/${this.normalizedVersion()}`
                     : `https://www.nuget.org/packages/${this.id()}`)
                 : null);
-        this.catalogLeafUrl = ko.observable("");
-        this.registrationUrl = ko.observable("");
-        this.flatContainerUrl = ko.observable("");
+        this.catalogLeafUrl = ko.observable("javascript:;");
+        this.registrationUrl = ko.observable("javascript:;");
+        this.flatContainerUrl = ko.observable("javascript:;");
         this.catalogItemTimestamp = ko.observable(new Date());
         this.catalogItemAgeMinutes = ko.pureComputed(() => (viewState.now().valueOf() - this.catalogItemTimestamp().valueOf()) / 60000);
         this.listed = ko.observable(true);
