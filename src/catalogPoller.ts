@@ -21,6 +21,10 @@ export class CatalogPoller {
         this.intervalId = window.setInterval(() => this.onTimer(), this.pollDelay);
     }
 
+    disable(): void {
+        window.clearInterval(this.intervalId);
+    }
+
     private poll(): void {
         $.ajax({
             url: this.feedUrl,
