@@ -6,10 +6,11 @@ export enum PackageState {
     PresentInCatalog = 1 << 0,
     PresentInRegistration = 1 << 1,
     PresentInSearch = 1 << 2,
-    Deleted = 1 << 3,
+    PresentInFlatContainer = 1 << 3,
+    Deleted = 1 << 16,
 
     CatalogOnly = PresentInCatalog,
-    Available = PresentInCatalog | PresentInRegistration | PresentInSearch,
+    Available = PresentInCatalog | PresentInRegistration | PresentInSearch | PresentInFlatContainer,
 }
 
 export class Package {

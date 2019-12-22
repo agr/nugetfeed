@@ -7,7 +7,20 @@
         <div id="nuget-container">
             <ul data-bind="foreach: packages">
                 <li>
-                    <span data-bind="text: state"></span>
+                    <!-- ko if: state() === 65536 -->
+                    <span class="package-deleted" title="Deleted">&times;</span>
+                    <!-- /ko -->
+                    <!-- ko if: state() === 15 -->
+                    <span class="package-status">&check;</span>
+                    <!-- /ko -->
+                    <!-- ko ifnot: state() === 65536 || state() === 15 -->
+                    <span class="package-status">
+                        <span class="catalog status-ok" title="Present in catalog">&#x25cf;</span><!--
+                        --><span class="registration" data-bind="class: state() & 2 ? 'status-ok' : 'status-no', attr: { title: state() & 2 ? 'Present in registration' : 'Not present in registration'}, text: state() & 2 ? '&#x25cf;' : '&#x25cb;'"></span><!--
+                        --><span class="search" data-bind="class: state() & 4 ? 'status-ok' : 'status-no', attr: { title: state() & 4 ? 'Present in search' : 'Not present in search'}, text: state() & 4 ? '&#x25cf;' : '&#x25cb;'"></span><!--
+                        --><span class="flat-container" data-bind="class: state() & 8 ? 'status-ok' : 'status-no', attr: { title: state() & 8 ? 'Present in flat container' : 'Not present in flat container'}, text: state() & 8 ? '&#x25cf;' : '&#x25cb;'"></span>
+                    </span>
+                    <!-- /ko -->
                     <a data-bind="attr: { href: galleryUrl }">
                         <span class="package-id" data-bind="text: id"></span>
                         <span class="package-version" data-bind="text: originalVersion"></span>
