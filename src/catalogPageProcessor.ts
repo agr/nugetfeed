@@ -8,6 +8,7 @@ enum CatalogItemType {
 
 export class CatalogPageProcessor {
     private seenIds: Record<string, boolean>;
+    private cutoffTime: Date;
 
     constructor() {
         this.seenIds = {};
@@ -21,18 +22,23 @@ export class CatalogPageProcessor {
             if (page.items.length > 50){
                 page.items = page.items.slice(0, 50);
             }
+            this.cutoffTime = new Date(page.items[page.items.length - 1].commitTimeStamp);
         }
         page.items.reverse();
         page.items.forEach(element => {
             let id = element["@type"] + element["@id"];
             if (!this.seenIds[id]){
                 this.seenIds[id] = true;
+                let itemTs = new Date(element.commitTimeStamp);
+                if (itemTs < this.cutoffTime)
+                {
+                    return;
+                }
                 let pkg = viewState.getOrAddPackage(id);
                 let state = element["@type"] === CatalogItemType.PackageDelete ? PackageState.Deleted : PackageState.CatalogOnly;
                 let packageId = element["nuget:id"];
                 let packageVersion = element["nuget:version"];
                 let leafUrl = element["@id"];
-                let itemTs = new Date(element.commitTimeStamp);
                 pkg.state(state);
                 pkg.id(packageId);
                 pkg.normalizedVersion(packageVersion);
