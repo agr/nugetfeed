@@ -58,7 +58,15 @@ export class CatalogPageProcessor {
         });
     }
 
-    processPackageDetails(pkg: Package, data: ICatalogLeaf): void {
-        pkg.normalizedVersion(data.version);
+    private processPackageDetails(pkg: Package, data: ICatalogLeaf): void {
+        pkg.normalizedVersion(CatalogPageProcessor.removeVersionMetadata(data.version));
+    }
+
+    private static removeVersionMetadata(version: string) {
+        let plusPos = version.indexOf('+');
+        if (plusPos >= 0) {
+            return version.substring(0, plusPos);
+        }
+        return version;
     }
 }
