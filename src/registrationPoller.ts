@@ -1,6 +1,6 @@
-import { ICatalogLeaf, IRegistrationIndex, IRegistrationPage, ICatalogPageItem } from "./nugetV3Objects";
+import { IRegistrationIndex, IRegistrationPage, ICatalogPageItem } from "./nugetV3Objects";
 import { SemVer } from "./semver";
-import { viewState, Package, PackageState } from "./viewState";
+import { Package, PackageState } from "./viewState";
 
 class PackageInfo {
     id: string;
