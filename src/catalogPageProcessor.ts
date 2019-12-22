@@ -37,7 +37,7 @@ export class CatalogPageProcessor {
             if (!this.seenIds[id]){
                 this.seenIds[id] = true;
                 let itemTs = new Date(pageItem.commitTimeStamp);
-                if (itemTs < this.cutoffTime)
+                if (itemTs <= this.cutoffTime)
                 {
                     return;
                 }
