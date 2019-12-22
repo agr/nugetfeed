@@ -8,14 +8,14 @@
             <ul data-bind="foreach: packages">
                 <li>
                     <!-- ko if: state() === 65536 -->
-                    <span class="package-deleted" title="Deleted">&times;</span>
+                    <a class="package-deleted" title="Deleted" data-bind="attr: { href: catalogLeafUrl }">&times;</a>
                     <!-- /ko -->
                     <!-- ko if: state() === 15 -->
                     <span class="package-status">&check;</span>
                     <!-- /ko -->
                     <!-- ko ifnot: state() === 65536 || state() === 15 -->
                     <span class="package-status">
-                        <span class="catalog status-ok" title="Present in catalog">&#x25cf;</span><!--
+                        <a class="catalog status-ok" title="Present in catalog" data-bind="attr: { href: catalogLeafUrl }">&#x25cf;</a><!--
                         --><span class="registration" data-bind="class: state() & 2 ? 'status-ok' : 'status-no', attr: { title: state() & 2 ? 'Present in registration' : 'Not present in registration'}, text: state() & 2 ? '&#x25cf;' : '&#x25cb;'"></span><!--
                         --><span class="search" data-bind="class: state() & 4 ? 'status-ok' : 'status-no', attr: { title: state() & 4 ? 'Present in search' : 'Not present in search'}, text: state() & 4 ? '&#x25cf;' : '&#x25cb;'"></span><!--
                         --><span class="flat-container" data-bind="class: state() & 8 ? 'status-ok' : 'status-no', attr: { title: state() & 8 ? 'Present in flat container' : 'Not present in flat container'}, text: state() & 8 ? '&#x25cf;' : '&#x25cb;'"></span>
@@ -26,7 +26,6 @@
                         <span class="package-version" data-bind="text: originalVersion"></span>
                     </a>
                     <span data-bind="text: '(' + catalogItemAgeMinutes().toFixed(0) + ' minutes ago)', attr: { title: catalogItemTimestamp } " ></span>
-                    <a class="catalog-leaf" data-bind="attr: { href: catalogLeafUrl }">Leaf</a>
                 </li>
             </ul>
         </div>
