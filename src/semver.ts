@@ -83,21 +83,19 @@ export class SemVer {
             return null;
         }
 
-        let idx = 4;
-        if (match[idx] && match[idx].startsWith(".")) {
+        if (match[4]) {
             // have build version - not exactly to semver spec
-            let buildVersionStr = match[idx].substring(1);
+            let buildVersionStr = match[4].substring(1);
             result.build = parseInt(buildVersionStr, 10);
             if (isNaN(result.build)) {
                 return null;
             }
-            ++idx;
         }
 
-        if (match[idx] && match[idx].startsWith("-")) {
+        if (match[5]) {
             // have pre-release identifier(s)
 
-            let preReleaseData = match[idx].substring(1);
+            let preReleaseData = match[5].substring(1);
             let split = preReleaseData.split(/\.+/);
 
             for (let element of split) {
@@ -109,13 +107,11 @@ export class SemVer {
                     result.preRelease.push(numeric);
                 }
             }
-
-            ++idx;
         }
 
-        if (match[idx] && match[idx].startsWith("+")) {
+        if (match[6]) {
             // have build metadata
-            result.metadata = match[idx].substring(1);
+            result.metadata = match[6].substring(1);
         }
 
         return result;
