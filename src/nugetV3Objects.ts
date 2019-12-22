@@ -54,15 +54,19 @@ export interface ICatalogLeaf {
     "catalog:commitId": string;
     "catalog:commitTimeStamp": string;
     created: string;
+    dependencyGroups: any[];
     deprecation: ICatalogLeafDeprecationItem;
     description: string;
+    iconUrl: string;
     id: string;
     isPrerelease: boolean;
+    language: string;
     lastEdited: string;
     licenseUrl: string;
     licenseFile: string;
     licenseExpression: string;
     listed: boolean;
+    minClientVersion: string;
     packageHash: string;
     packageHashAlgorithm: string;
     packageSize: number;
@@ -70,7 +74,61 @@ export interface ICatalogLeaf {
     published: string;
     releaseNotes: string;
     requireLicenseAcceptance: string;
+    summary: string;
+    title: string;
     verbatimVersion: string;
     version: string;
     tags: string[];
+}
+
+interface IRegistrationCatalogEntry {
+    "@id": string;
+    authors: string;
+    "catalog:commitId": string;
+    "catalog:commitTimeStamp": string;
+    created: string;
+    dependencyGroups: any[];
+    deprecation: ICatalogLeafDeprecationItem;
+    description: string;
+    iconUrl: string;
+    id: string;
+    isPrerelease: boolean;
+    licenseUrl: string;
+    licenseExpression: string;
+    listed: boolean;
+    minClientVersion: string;
+    packageSize: number;
+    projectUrl: string;
+    published: string;
+    releaseNotes: string;
+    requireLicenseAcceptance: string;
+    summary: string;
+    title: string;
+    version: string;
+    tags: string[];
+}
+
+interface IRegistrationLeaf {
+    "@id": string;
+    catalogEntry: IRegistrationCatalogEntry;
+    packageContent: string;
+}
+
+interface IRegistrationPage {
+    "@id": string;
+    commitId: string;
+    commitTimeStamp: string;
+    count: number;
+    items: IRegistrationLeaf[];
+    parent: string;
+    lower: string;
+    upper: string;
+}
+
+export interface IRegistrationIndex {
+    "@id": string;
+    commitId: string;
+    commitTimeStamp: string;
+    count: number;
+    items: IRegistrationPage[];
 }
