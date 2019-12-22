@@ -1,5 +1,6 @@
 import { removeVersionMetadata } from "./util";
 import { Package, PackageState } from "./viewState";
+import { IntervalPoller } from "./intervalPoller";
 
 interface IFlatContainerInfo {
     id: string;
@@ -10,11 +11,11 @@ interface IFlatContainerInfo {
 
 export class FlatContainerPoller {
     private baseUrl: string;
-    private packages: IFlatContainerInfo[];
+    private poller: IntervalPoller<IFlatContainerInfo>;
 
     constructor(baseUrl: string) {
         this.baseUrl = baseUrl;
-        this.packages = [];
+        this.poller = new IntervalPoller<IFlatContainerInfo>(30000, fci => this.doRequest(fci), 30 * 60 * 1000);
     }
 
     add(packageId: string, normalizedVersion: string, pkg: Package): void {
@@ -26,7 +27,7 @@ export class FlatContainerPoller {
             package: pkg,
             url: "",
         };
-        this.packages.push(own);
+        this.poller.add(own);
 
         this.doRequest(own);
     }
@@ -41,10 +42,7 @@ export class FlatContainerPoller {
     }
 
     private onNupkgExists(fci: IFlatContainerInfo) {
-        let index = this.packages.indexOf(fci);
-        if (index >= 0) {
-            this.packages.splice(index, 1);
-        }
+        this.poller.remove(fci);
         let state = fci.package.state();
         state |= PackageState.PresentInFlatContainer;
         fci.package.state(state);

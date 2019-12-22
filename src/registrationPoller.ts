@@ -1,6 +1,7 @@
 import { IRegistrationIndex, IRegistrationPage, ICatalogPageItem } from "./nugetV3Objects";
 import { SemVer } from "./semver";
 import { Package, PackageState } from "./viewState";
+import { IntervalPoller } from "./intervalPoller";
 
 class PackageInfo {
     id: string;
@@ -11,11 +12,11 @@ class PackageInfo {
 
 export class RegistrationPoller {
     private baseUrl: string;
-    private packages: PackageInfo[];
+    private poller: IntervalPoller<PackageInfo>;
 
     constructor(baseUrl: string) {
         this.baseUrl = baseUrl;
-        this.packages = [];
+        this.poller = new IntervalPoller(30000, pi => this.doRequest(pi), 30 * 60 * 1000); // 30 minutes in milliseconds
     }
 
     add(leaf: ICatalogPageItem, pkg: Package): void {
@@ -24,14 +25,8 @@ export class RegistrationPoller {
         pi.normalizedVersion = leaf["nuget:version"].toLowerCase();
         pi.expectedLeafUrl = leaf["@id"];
         pi.package = pkg;
-        this.packages.push(pi);
+        this.poller.add(pi);
         this.doRequest(pi);
-    }
-
-    private updateAll(): void {
-        for (let pi of this.packages) {
-            this.doRequest(pi);
-        }
     }
 
     private doRequest(pi: PackageInfo): void {
@@ -92,10 +87,7 @@ export class RegistrationPoller {
                 state |= PackageState.PresentInRegistration;
                 pi.package.state(state);
                 pi.package.registrationUrl(page["@id"]);
-                let index = this.packages.indexOf(pi);
-                if (index >= 0) {
-                    this.packages.splice(index, 1);
-                }
+                this.poller.remove(pi);
             }
         }
     }
