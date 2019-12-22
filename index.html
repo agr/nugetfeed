@@ -13,6 +13,7 @@
                         <span class="package-version" data-bind="text: originalVersion"></span>
                     </a>
                     <span data-bind="text: '(' + catalogItemAgeMinutes().toFixed(0) + ' minutes ago)', attr: { title: catalogItemTimestamp } " ></span>
+                    <a class="catalog-leaf" data-bind="attr: { href: catalogLeafUrl }">Leaf</a>
                 </li>
             </ul>
         </div>
