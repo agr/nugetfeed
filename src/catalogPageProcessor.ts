@@ -1,4 +1,4 @@
-import { ICatalogPage } from './catalogPoller'
+import { ICatalogPage } from './nugetV3Objects'
 import { viewState, PackageState } from './viewState'
 
 enum CatalogItemType {
@@ -46,9 +46,19 @@ export class CatalogPageProcessor {
                 pkg.catalogItemTimestamp(itemTs);
 
                 if (element["@type"] === CatalogItemType.PackageDetails) {
+                    $.ajax({
+                        url: element["@id"],
+                        success: data => this.processPackageDetails(data),
+                        error: (_, textStatus, errorThrown) => console.log(`Failed to get the package details ${element["@id"]}: ${textStatus}`)
+                    });
+
                     // queue status updates
                 }
             }
         });
+    }
+
+    processPackageDetails(data: any): void {
+        throw new Error("Method not implemented.");
     }
 }

@@ -1,42 +1,6 @@
 /// <reference path="../node_modules/@types/jquery/JQuery.d.ts" />
 
-interface ICatalogIndexItem {
-    "@id": string;
-    "@type": string;
-    commitId: string;
-    commitTimeStamp: string;
-    count: number;
-}
-
-interface ICatalogIndex {
-    "@id": string;
-    commitId: string;
-    commitTimeStamp: string;
-    count: number;
-    "nuget:lastCreated": string;
-    "nuget:lastDeleted": string;
-    "nuget:lastEdited": string;
-    items: ICatalogIndexItem[];
-}
-
-interface ICatalogPageItem {
-    "@id": string;
-    "@type": string;
-    commitId: string;
-    commitTimeStamp: string;
-    "nuget:id": string;
-    "nuget:version": string;
-}
-
-export interface ICatalogPage {
-    "@id": string;
-    "@type": string;
-    commitId: string;
-    commitTimeStamp: string;
-    count: number;
-    parent: string;
-    items: ICatalogPageItem[];
-}
+import { ICatalogPage, ICatalogIndex } from './nugetV3Objects'
 
 interface ICatalogPageReceived {
     (page: ICatalogPage): void;
