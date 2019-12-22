@@ -114,12 +114,12 @@ interface IRegistrationLeaf {
     packageContent: string;
 }
 
-interface IRegistrationPage {
+export interface IRegistrationPage {
     "@id": string;
     commitId: string;
     commitTimeStamp: string;
     count: number;
-    items: IRegistrationLeaf[];
+    items: IRegistrationLeaf[]; // can be absent, need to request "@id" for the full page
     parent: string;
     lower: string;
     upper: string;
