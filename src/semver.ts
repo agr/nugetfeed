@@ -2,6 +2,7 @@ export class SemVer {
     major: number = 0;
     minor: number = 0;
     patch: number = 0;
+    build: number = 0;
     preRelease: (string | number)[] = [];
     metadata: string = null;
 
@@ -22,6 +23,12 @@ export class SemVer {
             return -1;
         }
         if (this.patch > other.patch) {
+            return 1;
+        }
+        if (this.build < other.build) {
+            return -1;
+        }
+        if (this.build > other.build) { 
             return 1;
         }
 
@@ -55,37 +62,46 @@ export class SemVer {
     static tryParse(version: string): SemVer {
         let result = new SemVer();
 
-        let re = /^(\d+)\.(\d+)\.(\d+)(-[^+]+)?(\+.*)?$/;
+        let re = /^(\d+)\.(\d+)\.(\d+)(\.\d+)?(-[^+]+)?(\+.*)?$/;
         let match = re.exec(version);
         if (!match) {
             return null;
         }
 
-        result.major = parseInt(match[1]);
+        result.major = parseInt(match[1], 10);
         if (isNaN(result.major)) {
             return null;
         }
 
-        result.minor = parseInt(match[2]);
+        result.minor = parseInt(match[2], 10);
         if (isNaN(result.minor)) {
             return null;
         }
 
-        result.patch = parseInt(match[3]);
+        result.patch = parseInt(match[3], 10);
         if (isNaN(result.patch)) {
             return null;
         }
 
         let idx = 4;
+        if (match[idx] && match[idx].startsWith(".")) {
+            // have build version - not exactly to semver spec
+            let buildVersionStr = match[idx].substring(1);
+            result.build = parseInt(buildVersionStr, 10);
+            if (isNaN(result.build)) {
+                return null;
+            }
+            ++idx;
+        }
+
         if (match[idx] && match[idx].startsWith("-")) {
             // have pre-release identifier(s)
-            // TODO: process;
 
             let preReleaseData = match[idx].substring(1);
             let split = preReleaseData.split(/\.+/);
 
             for (let element of split) {
-                let numeric = parseInt(element);
+                let numeric = parseInt(element, 10);
                 if (isNaN(numeric)) {
                     result.preRelease.push(element);
                 }

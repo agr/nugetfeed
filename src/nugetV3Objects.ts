@@ -17,7 +17,7 @@ export interface ICatalogIndex {
     items: ICatalogIndexItem[];
 }
 
-interface ICatalogPageItem {
+export interface ICatalogPageItem {
     "@id": string;
     "@type": string;
     commitId: string;
@@ -112,6 +112,7 @@ interface IRegistrationLeaf {
     "@id": string;
     catalogEntry: IRegistrationCatalogEntry;
     packageContent: string;
+    registration: string;
 }
 
 export interface IRegistrationPage {

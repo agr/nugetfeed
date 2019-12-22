@@ -72,7 +72,7 @@ export class CatalogPoller {
             return;
         }
 
-        let pageIndex = parseInt(match[2]);
+        let pageIndex = parseInt(match[2], 10);
         let nextPage = pageIndex + 1;
         let url = match[1] + `page${nextPage}.json`;
         $.ajax({
