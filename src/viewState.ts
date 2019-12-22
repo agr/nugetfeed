@@ -12,7 +12,7 @@ export enum PackageState {
     Available = PresentInCatalog | PresentInRegistration | PresentInSearch,
 }
 
-class Package {
+export class Package {
     state: KnockoutObservable<PackageState>;
     id: KnockoutObservable<string>;
     normalizedVersion: KnockoutObservable<string>;
@@ -22,6 +22,7 @@ class Package {
     registrationUrl: KnockoutObservable<string>;
     catalogItemTimestamp: KnockoutObservable<Date>;
     catalogItemAgeMinutes: KnockoutComputed<number>;
+    listed: KnockoutObservable<boolean>;
 
     constructor(viewState: ViewState) {
         this.state = ko.observable(PackageState.Unknown);
@@ -38,6 +39,7 @@ class Package {
         this.registrationUrl = ko.observable("");
         this.catalogItemTimestamp = ko.observable(new Date());
         this.catalogItemAgeMinutes = ko.pureComputed(() => (viewState.now().valueOf() - this.catalogItemTimestamp().valueOf()) / 60000);
+        this.listed = ko.observable(true);
     }
 }
 

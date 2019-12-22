@@ -36,17 +36,32 @@ export interface ICatalogPage {
     items: ICatalogPageItem[];
 }
 
+interface ICatalogLeafDeprecationItemAlternatePackage {
+    "@id": string;
+    id: string;
+    range: string;
+}
+
+interface ICatalogLeafDeprecationItem {
+    "@id": string;
+    alternatePackage: ICatalogLeafDeprecationItemAlternatePackage;
+    reasons: string[];
+}
+
 export interface ICatalogLeaf {
     "@id": string;
     authors: string;
     "catalog:commitId": string;
     "catalog:commitTimeStamp": string;
     created: string;
+    deprecation: ICatalogLeafDeprecationItem;
     description: string;
     id: string;
     isPrerelease: boolean;
     lastEdited: string;
     licenseUrl: string;
+    licenseFile: string;
+    licenseExpression: string;
     listed: boolean;
     packageHash: string;
     packageHashAlgorithm: string;

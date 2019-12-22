@@ -1,5 +1,5 @@
-import { ICatalogPage } from './nugetV3Objects'
-import { viewState, PackageState } from './viewState'
+import { ICatalogPage, ICatalogLeaf } from './nugetV3Objects'
+import { viewState, PackageState, Package } from './viewState'
 
 enum CatalogItemType {
     PackageDetails = "nuget:PackageDetails",
@@ -48,7 +48,7 @@ export class CatalogPageProcessor {
                 if (element["@type"] === CatalogItemType.PackageDetails) {
                     $.ajax({
                         url: element["@id"],
-                        success: data => this.processPackageDetails(data),
+                        success: data => this.processPackageDetails(pkg, data),
                         error: (_, textStatus, errorThrown) => console.log(`Failed to get the package details ${element["@id"]}: ${textStatus}`)
                     });
 
@@ -58,7 +58,7 @@ export class CatalogPageProcessor {
         });
     }
 
-    processPackageDetails(data: any): void {
-        throw new Error("Method not implemented.");
+    processPackageDetails(pkg: Package, data: ICatalogLeaf): void {
+        pkg.normalizedVersion(data.version);
     }
 }
