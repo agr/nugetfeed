@@ -8,7 +8,10 @@
             <ul data-bind="foreach: packages">
                 <li>
                     <span data-bind="text: state"></span>
-                    <a data-bind="text: id() + ' ' + normalizedVersion(), attr: { href: galleryUrl }"></a>
+                    <a data-bind="attr: { href: galleryUrl }">
+                        <span class="package-id" data-bind="text: id"></span>
+                        <span class="package-version" data-bind="text: originalVersion"></span>
+                    </a>
                     <span data-bind="text: '(' + catalogItemAgeMinutes().toFixed(0) + ' minutes ago)', attr: { title: catalogItemTimestamp } " ></span>
                 </li>
             </ul>

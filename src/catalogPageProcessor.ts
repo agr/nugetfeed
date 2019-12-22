@@ -41,7 +41,7 @@ export class CatalogPageProcessor {
                 let leafUrl = element["@id"];
                 pkg.state(state);
                 pkg.id(packageId);
-                pkg.normalizedVersion(packageVersion);
+                pkg.originalVersion(packageVersion);
                 pkg.catalogLeafUrl(leafUrl);
                 pkg.catalogItemTimestamp(itemTs);
 

@@ -28,9 +28,12 @@ class Package {
         this.id = ko.observable("");
         this.normalizedVersion = ko.observable("");
         this.originalVersion = ko.observable("");
-        this.galleryUrl = ko.pureComputed(() => this.id() && this.normalizedVersion() 
-            ? `https://www.nuget.org/packages/${this.id()}/${this.normalizedVersion()}`
-            : null);
+        this.galleryUrl = ko.pureComputed(() => 
+            this.id()
+                ? (this.normalizedVersion() 
+                    ? `https://www.nuget.org/packages/${this.id()}/${this.normalizedVersion()}`
+                    : `https://www.nuget.org/packages/${this.id()}`)
+                : null);
         this.catalogLeafUrl = ko.observable("");
         this.registrationUrl = ko.observable("");
         this.catalogItemTimestamp = ko.observable(new Date());
