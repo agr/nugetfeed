@@ -1,5 +1,6 @@
 import { ICatalogPage, ICatalogLeaf, ICatalogPageItem } from './nugetV3Objects'
 import { viewState, PackageState, Package } from './viewState'
+import { removeVersionMetadata } from './util';
 
 enum CatalogItemType {
     PackageDetails = "nuget:PackageDetails",
@@ -68,15 +69,6 @@ export class CatalogPageProcessor {
     }
 
     private processPackageDetails(pkg: Package, data: ICatalogLeaf): void {
-        pkg.normalizedVersion(CatalogPageProcessor.removeVersionMetadata(data.version));
-    }
-
-    private static removeVersionMetadata(version: string) {
-        version = version.toLowerCase();
-        let plusPos = version.indexOf('+');
-        if (plusPos >= 0) {
-            return version.substring(0, plusPos);
-        }
-        return version;
+        pkg.normalizedVersion(removeVersionMetadata(data.version));
     }
 }
