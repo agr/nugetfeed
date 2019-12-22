@@ -21,6 +21,7 @@ export class Package {
     galleryUrl: KnockoutComputed<string>;
     catalogLeafUrl: KnockoutObservable<string>;
     registrationUrl: KnockoutObservable<string>;
+    flatContainerUrl: KnockoutObservable<string>;
     catalogItemTimestamp: KnockoutObservable<Date>;
     catalogItemAgeMinutes: KnockoutComputed<number>;
     listed: KnockoutObservable<boolean>;
@@ -38,6 +39,7 @@ export class Package {
                 : null);
         this.catalogLeafUrl = ko.observable("");
         this.registrationUrl = ko.observable("");
+        this.flatContainerUrl = ko.observable("");
         this.catalogItemTimestamp = ko.observable(new Date());
         this.catalogItemAgeMinutes = ko.pureComputed(() => (viewState.now().valueOf() - this.catalogItemTimestamp().valueOf()) / 60000);
         this.listed = ko.observable(true);
