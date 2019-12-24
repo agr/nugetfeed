@@ -7,17 +7,23 @@ enum CatalogItemType {
     PackageDelete = "nuget:PackageDelete",
 }
 
-export interface CatalogLeafProcessor {
+interface CatalogPageItemProcessor {
     (pageItem: ICatalogPageItem, pkg: Package): void;
+}
+
+interface CatalogLeafProcessor {
+    (leaf: ICatalogLeaf, pkg: Package): void;
 }
 
 export class CatalogPageProcessor {
     private seenIds: Record<string, boolean>;
     private cutoffTime: Date;
+    private pageItemProcessor: CatalogPageItemProcessor;
     private leafProcessor: CatalogLeafProcessor;
 
-    constructor(leafProcessor: CatalogLeafProcessor) {
+    constructor(pageItemProcessor: CatalogPageItemProcessor, leafProcessor: CatalogLeafProcessor) {
         this.seenIds = {};
+        this.pageItemProcessor = pageItemProcessor;
         this.leafProcessor = leafProcessor;
     }
 
@@ -62,8 +68,8 @@ export class CatalogPageProcessor {
                     });
 
                     // queue status updates
-                    if (this.leafProcessor) {
-                        this.leafProcessor(pageItem, pkg);
+                    if (this.pageItemProcessor) {
+                        this.pageItemProcessor(pageItem, pkg);
                     }
                 }
             }
@@ -72,5 +78,9 @@ export class CatalogPageProcessor {
 
     private processPackageDetails(pkg: Package, data: ICatalogLeaf): void {
         pkg.normalizedVersion(removeVersionMetadata(data.version));
+        if (this.leafProcessor)
+        {
+            this.leafProcessor(data, pkg);
+        }
     }
 }
