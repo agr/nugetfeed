@@ -34,6 +34,7 @@ export class FlatContainerPoller {
 
     private doRequest(fci: IFlatContainerInfo): void {
         fci.url = `${this.baseUrl}${fci.id}/${fci.normalizedVersion}/${fci.id}.${fci.normalizedVersion}.nupkg`;
+        fci.package.flatContainerUrl(fci.url);
         $.ajax({
             url: fci.url,
             method: "HEAD",
@@ -46,6 +47,5 @@ export class FlatContainerPoller {
         let state = fci.package.state();
         state |= PackageState.PresentInFlatContainer;
         fci.package.state(state);
-        fci.package.flatContainerUrl(fci.url);
     }
 }

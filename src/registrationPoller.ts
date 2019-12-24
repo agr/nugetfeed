@@ -31,6 +31,7 @@ export class RegistrationPoller {
 
     private doRequest(pi: PackageInfo): void {
         let url = `${this.baseUrl}${pi.id}/index.json`;
+        pi.package.registrationUrl(url);
         $.ajax({
             url: url,
             success: data => this.onReceivedRegistrationIndex(pi, data),
