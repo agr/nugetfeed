@@ -133,3 +133,32 @@ export interface IRegistrationIndex {
     count: number;
     items: IRegistrationPage[];
 }
+
+interface ISearchResultVersion {
+    "@id": string;
+    version: string;
+    downloads: number;
+}
+
+interface ISearchResult {
+    id: string;
+    version: string;
+    description: string;
+    versions: ISearchResultVersion[];
+    authors: string[];
+    iconUrl: string;
+    licenseUrl: string;
+    owners: string | string[];
+    projectUrl: string;
+    registratin: string;
+    summary: string;
+    tags: string;
+    title: string;
+    totalDownloads: number;
+    verified: boolean;
+}
+
+export interface ISearchResponse {
+    totalHist: number;
+    data: ISearchResult[];
+}
