@@ -13,9 +13,9 @@
                     <!-- ko ifnot: state() === 65536 -->
                     <span class="package-status">
                         <a class="catalog status-ok" title="Present in catalog" data-bind="attr: { href: catalogLeafUrl }">&#x25cf;</a><!--
+                        --><a class="flat-container" data-bind="class: state() & 8 ? 'status-ok' : 'status-no', attr: { title: state() & 8 ? 'Present in flat container' : 'Not present in flat container', href: flatContainerUrl}, text: state() & 8 ? '&#x25cf;' : '&#x25cb;'"></a><!--
                         --><a class="registration" data-bind="class: state() & 2 ? 'status-ok' : 'status-no', attr: { title: state() & 2 ? 'Present in registration' : 'Not present in registration', href: registrationUrl }, text: state() & 2 ? '&#x25cf;' : '&#x25cb;'"></a><!--
                         --><!--<span class="search" data-bind="class: state() & 4 ? 'status-ok' : 'status-no', attr: { title: state() & 4 ? 'Present in search' : 'Not present in search'}, text: state() & 4 ? '&#x25cf;' : '&#x25cb;'"></span>--><!--
-                        --><a class="flat-container" data-bind="class: state() & 8 ? 'status-ok' : 'status-no', attr: { title: state() & 8 ? 'Present in flat container' : 'Not present in flat container', href: flatContainerUrl}, text: state() & 8 ? '&#x25cf;' : '&#x25cb;'"></a>
                     </span>
                     <!-- /ko -->
                     <a data-bind="attr: { href: galleryUrl }">
