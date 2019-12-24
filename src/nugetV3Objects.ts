@@ -159,6 +159,6 @@ interface ISearchResult {
 }
 
 export interface ISearchResponse {
-    totalHist: number;
+    totalHits: number;
     data: ISearchResult[];
 }
