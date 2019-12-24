@@ -23,6 +23,7 @@ export class CatalogPageProcessor {
 
     processCatalogPage(page: ICatalogPage): void {
         page.items.sort((a, b) => -a.commitTimeStamp.localeCompare(b.commitTimeStamp));
+        let firstTime = false;
         if (Object.keys(this.seenIds).length === 0)
         {
             // got the data for the first time
@@ -30,6 +31,7 @@ export class CatalogPageProcessor {
                 page.items = page.items.slice(0, 50);
             }
             this.cutoffTime = new Date(page.items[page.items.length - 1].commitTimeStamp);
+            firstTime = true;
         }
         page.items.reverse();
         page.items.forEach(pageItem => {
@@ -37,7 +39,7 @@ export class CatalogPageProcessor {
             if (!this.seenIds[id]){
                 this.seenIds[id] = true;
                 let itemTs = new Date(pageItem.commitTimeStamp);
-                if (itemTs <= this.cutoffTime)
+                if (!firstTime && itemTs <= this.cutoffTime)
                 {
                     return;
                 }
