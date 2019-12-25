@@ -1,5 +1,3 @@
-/// <reference path="../node_modules/@types/knockout/index.d.ts" />
-
 import { load, IServiceIndex } from './serviceIndex'
 import { CatalogPoller } from './catalogPoller'
 import { CatalogPageProcessor } from './catalogPageProcessor';
