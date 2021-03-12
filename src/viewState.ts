@@ -70,6 +70,13 @@ class ViewState {
 
         return pkg;
     }
+
+    showListItem(elem: HTMLElement): void {
+        if (elem.nodeType === 1 && !elem.classList.contains("show"))
+        {
+            setTimeout(() => elem.classList.add("show"));
+        }
+    }
 }
 
 export let viewState = new ViewState();

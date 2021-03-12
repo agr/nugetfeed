@@ -1,11 +1,22 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <style type="text/css">
+            #nuget-container>ul>li {
+                transition: all 0.4s ease-out;
+                opacity: 0;
+                height: 0;
+                overflow-y: hide;
+            }
+            #nuget-container>ul>li.show {
+                height: 1.2em;
+                opacity: 1;
+            }
+        </style>
     </head>
     <body>
-
         <div id="nuget-container">
-            <ul data-bind="foreach: packages">
+            <ul data-bind="template: {foreach: packages, afterAdd: showListItem}">
                 <li>
                     <!-- ko if: state() === 65536 -->
                     <a class="package-deleted" title="Deleted" data-bind="attr: { href: catalogLeafUrl }">&times;</a>
